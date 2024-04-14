@@ -1,0 +1,64 @@
+$ mkdir SI_2024_lab1_213066
+$ cd SI_2024_lab1_213066
+$ git init
+
+$ git remote add origin  https://github.com/Dashaa111/SI_2024_lab1_213066.git
+
+$ nano README.md 	
+$ git add README.md 
+$ git commit-m "Initial commit"
+
+$ git add SILab1Main.java SILab1_1.java SILab1_2.java
+$ git commit -m "Add starter code"
+$ git push -u origin master
+
+$ git branch bug1	
+$ git branch bug2	
+
+
+$ git checkout bug1	
+$ nano SILab1_1.java 	
+$ cat SILab1_1.java 
+$ git add SILab1_1.java 	
+$ git commit -m "Fix wrong condition in filterOddLengthStgrings"	
+
+$ git checkout bug2
+$ nano SILab1_2.java 	
+$ cat SILab1_2.java 
+$ git add SILab1_2.java 
+$ git commit -m "Fix wrong condition in makeBigStringFrom" 
+
+
+$ git checkout bug1 
+$ nano SILab1Main.java 	
+$ git add SILab1Main.java 
+$ git commit -m "Call method filterOddLengthStrings in main class" 
+
+
+$ git checkout bug2
+$ nano SILab1Main.java
+$ git add SILab1Main.java
+$ git commit -m "Call method makeBigStringFrom in main class"
+
+$ git push origin bug2  
+$ git push origin bug1 
+
+$ git checkout master 
+$ git merge bug1 
+
+$ git push --all 
+
+$ git checkout bug2 
+$ git rebase master -se javuva konflikt i se reshva 
+$ nano SILab1Main.java 
+$ git add SILab1Main.java 
+$ git rebase --continue 
+
+$ git checkout master 
+$ git merge bug2
+
+$ git push --all 
+$ git push --force origin bug2 
+
+$ git log > logs.txt
+$ git touch 213066.txt
