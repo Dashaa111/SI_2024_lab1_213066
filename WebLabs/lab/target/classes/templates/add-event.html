@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-md-5">
+      <form action="/events/add" method="POST">
+        <input id="id" type="hidden" name="id"
+               th:value="(${event} != null ? ${event.getId()} : '')">
+        <div class="form-group">
+          <label for="name">Event name</label>
+          <input type="text" class="form-control" id="name" name="name"
+                 th:value="${event != null ? event.getName() : ''}" required
+                 placeholder="Enter product name">
+
+
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input type="text" class="form-control" id="description" name="description"
+                 th:value="${event != null ? event.getDescription() : ''}" required
+                 placeholder="Enter description">
+
+
+        </div>
+        <div class="form-group">
+          <label for="popularityScore">Popularity score</label>
+          <input type="text" class="form-control" id="popularityScore" name="popularityScore"
+                 th:value="${event != null ? event.getPopularityScore() : ''}" required
+                 placeholder="Enter quantity">
+
+        </div>
+
+        <div class="form-group">
+          <label >Location</label>
+          <select name="location" class="form-control">
+            <option  th:if="${event} != null"
+                     th:each="loc : ${locations}"
+                     th:selected="${event.getLocation() != null && event.getLocation().getId() == loc.getId()}"
+                     th:text="${loc.getName()}"
+                     th:value="${loc.getId()}">
+            </option>
+
+            <option  th:if="${event} == null"
+                     th:each="loc : ${locations}"
+                     th:text="${loc.getName()}"
+                     th:value="${loc.getId()}">
+            </option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a type="button" class="btn btn-primary" href="/events">Back</a>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+</body>
+</html>
