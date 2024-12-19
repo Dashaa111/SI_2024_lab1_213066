@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Event List</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            max-width: 800px;
+            margin: auto;
+            padding-top: 20px;
+        }
+        .header-text {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .rating-input {
+            width: 100px;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+</head>
+<body>
+<header class="header-text">
+    <h1>Welcome to our Event Booking App</h1>
+</header>
+<main>
+    <h2 class="text-center">Choose an Event</h2>
+    <a href="/logout">Log out</a>
+    <form th:method="post" th:action="@{/}" class="form-inline my-4">
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="search-input" class="sr-only">Search for an event:</label>
+            <input id="search-input" name="search-text" type="text" class="form-control" placeholder="Search for an event">
+        </div>
+        <div class="form-group mx-sm-3 mb-2">
+            <label for="rating-input" class="sr-only">Rating:</label>
+            <input id="rating-input" name="rating-text" type="number" min="1" max="5" class="form-control rating-input" placeholder="Rating (1-5)">
+        </div>
+        <button type="submit" class="btn btn-primary mb-2">Search</button>
+    </form>
+
+    <th:block th:if="${hasError}">
+        <div class="alert alert-danger" role="alert">Error finding event with given ID.</div>
+    </th:block>
+
+    <form th:method="POST" th:action="@{/booking}">
+        <ul class="list-group my-4">
+            <li class="list-group-item d-flex justify-content-between align-items-center" th:each="event : ${events}">
+                <div>
+                    <input type="radio" name="selectedEvent" th:value="${event.getName()}" class="mr-2">
+                    <span th:text="${event.getName()} + ', Description: ' + ${event.getDescription()} + ', Rating: ' + ${event.getPopularityScore()} + ', Location: ' + ${event.getLocation().getName()}"></span>
+                </div>
+                <div>
+                   <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+                       <div>
+                           <a th:href="@{'/events/edit/{id}' (id=${event.getId()})}" class="btn btn-primary btn-sm">Edit</a>
+                           <a th:href="@{'/events/delete/{id}' (id=${event.getId()})}"
+                              class="btn btn-danger btn-sm">Delete</a>
+                       </div>
+                   </th:block>
+                </div>
+            </li>
+        </ul>
+
+        <a href="/events/add" class="btn btn-primary mb-3">Add Event</a>
+
+        <div class="form-group">
+            <h4>Choose Number of Tickets:</h4>
+            <input type="number" name="numTickets" min="1" max="10" class="form-control w-25">
+        </div>
+        <button type="submit" class="btn btn-success mt-3">Submit</button>
+    </form>
+
+    <h2 class="my-4">Active Sessions:</h2>
+    <p class="alert alert-info" th:text="${activeSessions}"></p>
+</main>
+</body>
+</html>

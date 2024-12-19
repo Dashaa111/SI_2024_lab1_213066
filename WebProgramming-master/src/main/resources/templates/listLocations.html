@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Locations</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+        <ul class="list-group my-4">
+            <li class="list-group-item d-flex justify-content-between align-items-center" th:each="location : ${locations}">
+                <div>
+                    <span th:text="${location.getName()} + ', Description: ' + ${location.getDescription()} + ', Capacity: ' + ${location.getCapacity()} + ', Address: ' + ${location.getAddress()}"></span>
+                </div>
+                <div>
+                    <div>
+<!--                        <a th:href="@{'/locations/edit/{id}' (id=${location.getId()})}" class="btn btn-primary btn-sm">Edit</a>-->
+                        <a th:href="@{'/locations/delete/{id}' (id=${location.getId()})}"
+                           class="btn btn-danger btn-sm">Delete</a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <a href="/locations/add" class="btn btn-primary mb-3">Add Event</a>
+</body>
+</html>

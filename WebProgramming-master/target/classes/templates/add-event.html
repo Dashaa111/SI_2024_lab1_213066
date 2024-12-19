@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Event</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container mt-5">
+  <h1>Edit Event</h1>
+  <form th:method="POST" th:action="@{/events/edit/{id} (id=${event != null ? event.getId() : 0})}" class="mt-4">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" class="form-control" th:value="${event != null ? event.getName() : ''}">
+    </div>
+
+    <div class="form-group">
+      <label for="desc">Description:</label>
+      <input type="text" id="desc" name="desc" class="form-control" th:value="${event != null ? event.getDescription() : ''}">
+    </div>
+
+    <div th:if="${event != null}" class="form-group">
+      <label for="popularity">Popularity Score:</label>
+      <input type="number" id="popularity" name="popularity" class="form-control" th:value="${event.getPopularityScore() != null ? event.getPopularityScore() : 0.0}">
+    </div>
+
+    <div th:if="${event == null}">
+      <input type="hidden" name="popularity" value="0.0">
+    </div>
+
+    <div class="form-group">
+      <label for="locationId">Location:</label>
+      <select id="locationId" name="locationId" class="form-control">
+        <option th:each="location : ${allLocations}"
+                th:value="${location.getId()}"
+                th:selected="${event != null && location.getId() == event.getLocation().getId()}"
+                th:text="${location.getName()}">
+        </option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Confirm</button>
+  </form>
+</div>
+</body>
+</html>

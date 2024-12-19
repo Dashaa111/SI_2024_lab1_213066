@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/O+7qX3Gh/JdZlyU8lhc5iqNU9mmEL9E9v+T2kY"
+        crossorigin="anonymous">
+</head>
+<body>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+          <h4>Login</h4>
+        </div>
+        <div class="card-body">
+          <form method="POST" action="/login">
+            <div class="mb-3">
+              <label for="username" class="form-label">Username</label>
+              <input type="text" id="username" name="username" class="form-control" placeholder="Enter username" required>
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input type="password" name="password" id="password" class="form-control" placeholder="Enter password" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+          </form>
+          <div th:if="${hasError}" class="alert alert-danger mt-3 text-center" role="alert">
+            <p th:text="${error}"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js" integrity="sha384-w76AqBd5p7JfaJm8vF6KnY2Aj7knWjjo1lFf5r5t6LfXAN3p6t2ImX+Ml85DIdFv" crossorigin="anonymous"></script>
+
+</body>
+</html>
